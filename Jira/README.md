@@ -105,6 +105,46 @@ python jira_sync.py "labels=SEO"
 | target_priority | VARCHAR(50) | Приоритет связанной задачи |
 | created_at | TIMESTAMP | Время создания записи |
 
+## Полезные JQL запросы
+
+```bash
+# 1. По меткам и конкретному пользователю
+python jira_sync.py "labels=SEO AND assignee=v.miroshnikova"
+
+# 2. По меткам и текущему пользователю
+python jira_sync.py "labels=SEO AND assignee=currentUser()"
+
+# 3. По меткам, пользователю и периоду
+python jira_sync.py "labels=SEO AND assignee=currentUser() AND created >= 2025-10-01"
+
+# 4. По нескольким меткам
+python jira_sync.py "labels IN (SEO, Дзен) AND assignee=currentUser()"
+
+# 5. По меткам и проекту
+python jira_sync.py "labels=SEO AND project=PRMR AND assignee=currentUser()"
+
+# 6. По меткам, пользователю и статусу
+python jira_sync.py "labels=SEO AND assignee=currentUser() AND status='В работе'"
+```
+### Полезные операторы JQL:
+
+```bash
+# AND - оба условия должны выполняться
+python jira_sync.py "A AND B"
+
+# OR - хотя бы одно условие
+python jira_sync.py "A OR B"
+
+# IN - одно из значений списка
+python jira_sync.py "status IN ('В работе', 'Открыто')"
+
+# NOT - отрицание
+python jira_sync.py "labels=SEO AND assignee!=v.miroshnikova"
+
+# Комбинация со скобками
+python jira_sync.py "(labels=SEO OR labels=Дзен) AND assignee=currentUser()"
+```
+
 ## Полезные SQL запросы
 
 ### Основные запросы
