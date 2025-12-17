@@ -125,8 +125,11 @@ python jira_sync.py "labels=SEO AND project=PRMR AND assignee=currentUser()"
 
 # 6. По меткам, пользователю и статусу
 python jira_sync.py "labels=SEO AND assignee=currentUser() AND status='В работе'"
+
+# 7. По меткам, текущему пользователю и за послдений год
+python jira_sync.py "labels=SEO AND assignee=currentUser() AND created >= startOfYear()"
 ```
-### Полезные операторы JQL:
+### Полезные операторы JQL:~
 
 ```bash
 # AND - оба условия должны выполняться
@@ -338,3 +341,13 @@ sudo systemctl start jira-sync.timer
 2. Перейдите в "Фильтры" → "Расширенный поиск"
 3. Вставьте ваш JQL запрос
 4. Убедитесь, что он возвращает результаты
+
+## Команды для бэка на VDS
+
+```terminal
+Перезапуск дашборда
+sudo systemctl restart jira-dashboard
+
+Статус дашборда
+sudo systemctl status jira-dashboard
+```
